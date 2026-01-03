@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Food Delivery UI</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f5f5;
+      overflow: hidden;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      height: 100vh;
+    }
+
+    /* ================= MAIN PANEL ================= */
+    .main-panel {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Top Bar */
+    .topbar {
+      height: 60px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .location-search input {
+      margin-left: 10px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    /* Content Layout */
+    .content {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      background: #fff;
+      padding: 20px;
+      border-right: 1px solid #ddd;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      margin-top: 10px;
+    }
+
+    .sidebar li {
+      padding: 8px 0;
+      cursor: pointer;
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .greeting {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .search-bar {
+      background: #fff;
+      padding: 10px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .search-bar input {
+      border: none;
+      outline: none;
+      margin-left: 10px;
+      width: 100%;
+    }
+
+    /* Categories */
+    .categories {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .category {
+      background: #fff;
+      padding: 8px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Section Header */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    /* Restaurant Grid */
+    .restaurant-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .restaurant-card {
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      transition: transform 0.2s ease;
+    }
+
+    .restaurant-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .restaurant-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .restaurant-info {
+      padding: 12px;
+    }
+
+    .restaurant-meta {
+      font-size: 14px;
+      color: #555;
+      margin-top: 5px;
+    }
+
+    /* ================= CART PANEL ================= */
+    .cart-panel {
+      background: #fff;
+      padding: 20px;
+      overflow-y: auto;
+      border-left: 1px solid #ddd;
+    }
+
+    .cart-header img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .cart-title {
+      font-size: 18px;
+      margin: 15px 0;
+    }
+
+    .cart-tabs span {
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin: 12px 0;
+    }
+
+    .bill {
+      margin-top: 20px;
+    }
+
+    .bill-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 5px 0;
+    }
+
+    .bill-total {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .order-btn {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background: #ff6f00;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+<div class="app">
+
+  <!-- MAIN PANEL -->
+  <div class="main-panel">
+
+    <div class="topbar">
+      <div class="logo">🍔 Food Delivery</div>
+      <div class="location-search">📍 Chennai
+        <input type="text" placeholder="Search restaurants" />
+      </div>
+      <div>❤️ 🔍 👤</div>
+    </div>
+
+    <div class="content">
+
+      <div class="sidebar">
+        <h4>Categories</h4>
+        <ul>
+          <li>🍕 Pizza</li>
+          <li>🍔 Burger</li>
+          <li>🥗 Healthy</li>
+          <li>🍛 South Indian</li>
+          <li>🍰 Desserts</li>
+        </ul>
+      </div>
+
+      <div class="main-content">
+        <div class="greeting">Hello, David 👋</div>
+
+        <div class="search-bar">
+          🔍 <input type="text" placeholder="Search for dishes or restaurants" />
+        </div>
+
+        <div class="section-header">
+          <h3>Popular Restaurants</h3>
+          <span>View All</span>
+        </div>
+
+        <div id="rest" class="restaurant-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART PANEL -->
+  <div class="cart-panel">
+    <div class="cart-header">
+      <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092" />
+    </div>
+    <div class="cart-title">Spice Hub</div>
+    <div class="cart-item"><h5>Paneer Tikka</h5><button>+ Add</button></div>
+    <div class="cart-item"><h5>Butter Chicken</h5><button>+ Add</button></div>
+    <div class="bill">
+      <div class="bill-row"><span>Total</span><span>₹697</span></div>
+    </div>
+    <button class="order-btn">Place Order</button>
+  </div>
+
+</div>
+
+<script>
+ const data=[
+  {
+    "restaurantID": 26,
+    "restaurantName": "1135 AD",
+    "address": "Jaipur, Amber Fort, Rajasthan",
+    "type": "Rajasthani",
+    "parkingLot": true,
+    "rating": 4.6,
+    "deliveryTime": "35 mins",
+    "priceForTwo": "₹1800",
+    "image": "https://images.unsplash.com/photo-1600891964599-f61ba0e24092"
+  },
+  {
+    "restaurantID": 25,
+    "restaurantName": "6 Ballygunge Place",
+    "address": "Kolkata, Ballygunge, West Bengal",
+    "type": "Bengali Cuisine",
+    "parkingLot": true,
+    "rating": 4.5,
+    "deliveryTime": "30 mins",
+    "priceForTwo": "₹1200",
+    "image": "https://images.unsplash.com/photo-1625944525533-473f1a3d54c0"
+  },
+  {
+    "restaurantID": 29,
+    "restaurantName": "Agashiye",
+    "address": "Ahmedabad, House of MG, Gujarat",
+    "type": "Gujarati",
+    "parkingLot": true,
+    "rating": 4.7,
+    "deliveryTime": "40 mins",
+    "priceForTwo": "₹1500",
+    "image": "https://images.unsplash.com/photo-1589302168068-964664d93dc0"
+  },
+  {
+    "restaurantID": 9,
+    "restaurantName": "Alhamdulillah Hotel",
+    "address": "Hyderabad, Sultan Shahi, Telangana",
+    "type": "Mughlai",
+    "parkingLot": false,
+    "rating": 4.2,
+    "deliveryTime": "25 mins",
+    "priceForTwo": "₹700",
+    "image": "https://images.unsplash.com/photo-1626776876729-bab4361c79d6"
+  },
+  {
+    "restaurantID": 4,
+    "restaurantName": "Bawarchi",
+    "address": "Hyderabad, RTC Cross Road, Telangana",
+    "type": "Biryani",
+    "parkingLot": true,
+    "rating": 4.4,
+    "deliveryTime": "28 mins",
+    "priceForTwo": "₹900",
+    "image": "https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a"
+  },
+  {
+    "restaurantID": 22,
+    "restaurantName": "Benjarong",
+    "address": "Chennai, Alwarpet, Tamil Nadu",
+    "type": "Thai",
+    "parkingLot": true,
+    "rating": 4.3,
+    "deliveryTime": "35 mins",
+    "priceForTwo": "₹1400",
+    "image": "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d"
+  },
+  {
+    "restaurantID": 11,
+    "restaurantName": "Bukhara",
+    "address": "Delhi, Chanakyapuri, Delhi",
+    "type": "North Indian",
+    "parkingLot": true,
+    "rating": 4.8,
+    "deliveryTime": "45 mins",
+    "priceForTwo": "₹2500",
+    "image": "https://images.unsplash.com/photo-1626074353765-517a681e40be"
+  },
+  {
+    "restaurantID": 1,
+    "restaurantName": "Paradise Biryani",
+    "address": "Hyderabad, Secunderabad, Telangana",
+    "type": "Biryani",
+    "parkingLot": true,
+    "rating": 4.3,
+    "deliveryTime": "30 mins",
+    "priceForTwo": "₹1000",
+    "image": "https://images.unsplash.com/photo-1633945274405-b6c8069047b0"
+  },
+  {
+    "restaurantID": 21,
+    "restaurantName": "Murugan Idli Shop",
+    "address": "Chennai, T. Nagar, Tamil Nadu",
+    "type": "South Indian",
+    "parkingLot": false,
+    "rating": 4.5,
+    "deliveryTime": "20 mins",
+    "priceForTwo": "₹400",
+    "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc"
+  },
+  {
+    "restaurantID": 19,
+    "restaurantName": "Toit Brewery",
+    "address": "Bangalore, Indiranagar, Karnataka",
+    "type": "Brewery",
+    "parkingLot": true,
+    "rating": 4.6,
+    "deliveryTime": "35 mins",
+    "priceForTwo": "₹1600",
+    "image": "https://images.unsplash.com/photo-1514933651103-005eec06c04b"
+  }
+];
+
+const rest = document.getElementById("rest");
+const fragment = document.createDocumentFragment();
+
+data.forEach(r => {
+  const card = document.createElement("div");
+  card.className = "restaurant-card";
+  card.innerHTML = `
+    <img src="${r.image}" loading="lazy">
+    <div class="restaurant-info">
+      <h4>${r.restaurantName}</h4>
+      <div class="restaurant-meta">
+        ⭐ ${r.rating} · ${r.deliveryTime} · ${r.priceForTwo}
+      </div>
+    </div>
+  `;
+  fragment.appendChild(card);
+});
+
+rest.appendChild(fragment);
+</script>
+
+</body>
+</html>
